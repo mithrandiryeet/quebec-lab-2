@@ -7,7 +7,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/index', function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile(__dirname + 'index.html');
 })
 
 
