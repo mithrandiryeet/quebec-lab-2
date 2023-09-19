@@ -1,2 +1,1 @@
-# mike_november
-mike/november lab for Cumbie fall 2023
+papa lab, imported from mike-novmber
