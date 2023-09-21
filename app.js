@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const { ObjectId } = require('mongodb')
 const port = (process.env.PORT || 5500)
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://willswiggins:9VYDcrdUbe1wngZN@cluster0.iszu7zm.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI;
 
 
 
@@ -65,6 +65,8 @@ app.get('/views', function (req, res) {
 })
 
 app.get('/', async (req, res) => {
+
+  
 
   let result = await cxnDB().catch(console.error); 
 
