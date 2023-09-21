@@ -35,7 +35,7 @@ async function cxnDB(){
 
   try{
     client.connect; 
-    const collection = client.db("Cpapa-lab-db").collection("papa-collection");
+    const collection = client.db("papa-lab-db").collection("papa-collection");
     // const collection = client.db("papa").collection("dev-profiles");
     const result = await collection.find().toArray();
     //const result = await collection.findOne(); 
