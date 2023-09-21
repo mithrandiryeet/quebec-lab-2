@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const port = (process.env.PORT || 3000)
+const { ObjectId } = require('mongodb')
+const port = (process.env.PORT || 5500)
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://willswiggins:HelloWorld@cluster0.iszu7zm.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://willswiggins:9VYDcrdUbe1wngZN@cluster0.iszu7zm.mongodb.net/?retryWrites=true&w=majority";
+
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -26,7 +29,26 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
+
+async function cxnDB(){
+
+  try{
+    client.connect; 
+    const collection = client.db("Cpapa-lab-db").collection("papa-collection");
+    // const collection = client.db("papa").collection("dev-profiles");
+    const result = await collection.find().toArray();
+    //const result = await collection.findOne(); 
+    console.log("cxnDB result: ", result);
+    return result; 
+  }
+  catch(e){
+      console.log(e)
+  }
+  finally{
+    client.close; 
+  }
+}
 
 
 app.set('view engine', 'ejs');
@@ -40,6 +62,16 @@ app.get('/views', function (req, res) {
     'myVariableClient' : myVariableServer 
   }
   );
+})
+
+app.get('/', async (req, res) => {
+
+  let result = await cxnDB().catch(console.error); 
+
+  // console.log("get/: ", result);
+
+  res.send("testing: " + result[0].name)
+  //res.render('index', {  peopleData : result })
 })
 
 app.post('/postClientData', function (req, res) {
@@ -57,13 +89,7 @@ app.post('/postClientData', function (req, res) {
  );
 })
 
-app.get('/', function (req, res) {
-  res.send('<h1>Hello World From Express & a PaaS/Render</h1>')
-})
 
-app.get('/whatever', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-})
 
 
 
