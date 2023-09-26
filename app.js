@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const { ObjectId } = require('mongodb')
 const port = (process.env.PORT || 5500)
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb')
 const uri = process.env.MONGO_URI;
 
 
@@ -66,7 +67,7 @@ app.get('/views', function (req, res) {
 
 app.get('/', async (req, res) => {
 
-  
+
 
   let result = await cxnDB().catch(console.error); 
 
