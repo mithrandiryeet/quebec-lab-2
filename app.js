@@ -1,11 +1,14 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const { ObjectId } = require('mongodb')
-const port = (process.env.PORT || 5500)
-const { MongoClient, ServerApiVersion } = require('mongodb')
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not defined in your environment variables.");
+}
 const uri = process.env.MONGO_URI;
+const port = process.env.PORT || 5500;
 
 
 
