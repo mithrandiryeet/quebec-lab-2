@@ -61,34 +61,22 @@ app.get('/views', function (req, res) {
 })
 
 app.get('/', async (req, res) => {
+  let result = await cxnDB().catch(console.error);
 
+  if (result && result[0] && result[0].name) {
+      res.send("testing: " + result[0].name);
+  } else {
+      res.send("No data found");
+  }
+});
 
-
-  let result = await cxnDB().catch(console.error); 
-
-  // console.log("get/: ", result);
-
-  res.send("testing: " + result[0].name)
-  //res.render('index', {  peopleData : result })
-})
-
-app.post('/postClientData', function (req, res) {
-  
-  console.log("body: ", req.body)
-  console.log("user Name: ", req.body.userName)
- //  console.log("params: ", req.params['userName']);
- 
- // myVariableServer = req.body.userName;
-
- res.render('index', 
- {
-   'myVariableClient' : req.body.userName 
- }
- );
-})
-
-
-
+app.post('/postClientData', (req, res) => {
+  console.log("body: ", req.body);
+  console.log("user Name: ", req.body.userName);
+  res.render('index', {
+      'myVariableClient': req.body.userName
+  });
+});
 
 
 // app.listen(3000)
