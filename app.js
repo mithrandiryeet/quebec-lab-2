@@ -23,34 +23,26 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 }); //maybe have to change admin
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      await client.connect();
+      await client.db("admin").command({ ping: 1 });
+      console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+      await client.close();
   }
 }
 // run().catch(console.dir);
 
-async function cxnDB(){
-
-  try{
-    client.connect; 
-    const collection = client.db("papa-lab-db").collection("papa-collection");
-    // const collection = client.db("papa").collection("dev-profiles");
-    const result = await collection.find().toArray();
-    //const result = await collection.findOne(); 
-    console.log("cxnDB result: ", result);
-    return result; 
-  }
-  catch(e){
-      console.log(e)
-  }
-  finally{
-    client.close; 
+async function cxnDB() {
+  try {
+      await client.connect();
+      const collection = client.db("papa-lab-db").collection("papa-collection");
+      const result = await collection.find().toArray();
+      console.log("cxnDB result: ", result);
+      return result;
+  } catch (e) {
+      console.log(e);
+  } finally {
+      await client.close();
   }
 }
 
